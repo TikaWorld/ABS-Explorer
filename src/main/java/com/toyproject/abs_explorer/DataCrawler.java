@@ -2,7 +2,8 @@ package com.toyproject.abs_explorer;
 
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;;import java.io.IOException;
+import org.jsoup.nodes.Document;
+import java.io.IOException;
 
 public class DataCrawler {
     private String url;
