@@ -18,4 +18,10 @@ public class AmazonSearcher {
         Elements books = doc.select("li[class=zg-item-immersion]");
         return books;
     }
+
+    public Elements getCategory() {
+        Document doc = dataCrawler.parsehttps("/best-sellers-books-Amazon/zgbs/books/5");
+        Elements category = doc.select("div[class=a-fixed-left-grid-col a-col-left]");
+        return category;
+    }
 }
