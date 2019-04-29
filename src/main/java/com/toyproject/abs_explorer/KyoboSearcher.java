@@ -1,6 +1,8 @@
 package com.toyproject.abs_explorer;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class KyoboSearcher {
     private String url;
@@ -11,8 +13,8 @@ public class KyoboSearcher {
         dataCrawler = new DataCrawler(this.url);
     }
 
-    public Document search(String word) {
+    public Element search(String word) {
         Document doc = dataCrawler.parsehttps("?vPstrKeyWord=" + word.replaceAll(" ", "%20") + "&vPplace=top");
-        return doc;
+        return doc.select("table[class=type_list] > tbody > tr").get(0);
     }
 }

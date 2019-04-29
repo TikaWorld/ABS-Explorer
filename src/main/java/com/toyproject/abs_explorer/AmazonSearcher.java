@@ -21,7 +21,7 @@ public class AmazonSearcher {
 
     public Elements getCategory() {
         Document doc = dataCrawler.parsehttps("/best-sellers-books-Amazon/zgbs/books/5");
-        Elements category = doc.select("div[class=a-fixed-left-grid-col a-col-left]");
+        Elements category = doc.select("#zg_browseRoot > ul > ul > ul");
         return category;
     }
 }

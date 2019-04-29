@@ -14,7 +14,7 @@ public class DataCrawlerTest {
         Elements books = doc.select("li[class=zg-item-immersion]");
         for(Element book: books){
             System.out.println(book.select("span[class=zg-badge-text]").text());
-            System.out.println(book.select("span[class=aok-inline-block zg-item]").select("a[class=a-link-normal]").get(0).text());
+            System.out.println(book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text());
         }
     }
 }
