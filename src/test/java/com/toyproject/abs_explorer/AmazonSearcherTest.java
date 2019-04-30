@@ -12,7 +12,7 @@ public class AmazonSearcherTest {
         AmazonSearcher amazonSearcher = new AmazonSearcher();
         Elements categories = amazonSearcher.getCategory();
         for(Element category: categories){
-            System.out.println(category);
+            System.out.println(category.attr("abs:href").replace("https://www.amazon.com", ""));
         }
     }
 }

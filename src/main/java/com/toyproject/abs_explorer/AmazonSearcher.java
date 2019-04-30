@@ -14,14 +14,14 @@ public class AmazonSearcher {
     }
 
     public Elements getBookElements(String category) {
-        Document doc = dataCrawler.parsehttps(category + "/zgbs/books/5");
+        Document doc = dataCrawler.parsehttps(category);
         Elements books = doc.select("li[class=zg-item-immersion]");
         return books;
     }
 
     public Elements getCategory() {
         Document doc = dataCrawler.parsehttps("/best-sellers-books-Amazon/zgbs/books/5");
-        Elements category = doc.select("#zg_browseRoot > ul > ul > ul");
+        Elements category = doc.select("#zg_browseRoot > ul > ul > ul > li > a");
         return category;
     }
 }
