@@ -6,6 +6,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class KyoboSearcherTest {
     @Test
     public void searchTest() {
@@ -17,10 +19,15 @@ public class KyoboSearcherTest {
     public void crawlAndSearchTest() {
         KyoboSearcher kyoboSearcher = new KyoboSearcher();
         AmazonSearcher amazonSearcher = new AmazonSearcher();
-        Elements books = amazonSearcher.getBookElements("/Best-Sellers-Books-Computer-Programming");
+        String exCategory = amazonSearcher.getCategory().get(0).attr("abs:href").replace("https://www.amazon.com", "");
+        Elements books = amazonSearcher.getBookElements(exCategory);
         for(Element book: books) {
             System.out.println(book.select("span[class=zg-badge-text]").text());
-            System.out.println(kyoboSearcher.search(book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text()).select("td[class=detail]"));
+            try {
+                System.out.println(kyoboSearcher.search(book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text()).select("td[class=detail]"));
+            }catch(IndexOutOfBoundsException e){
+                System.out.println("book is not exist");
+            }
         }
     }
 }
