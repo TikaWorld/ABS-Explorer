@@ -15,14 +15,18 @@ public class RankRepositoryTest {
     @Autowired
     private RankRepository rankRepository;
 
+    private SearchController searchController = new SearchController();
+
     @Test
     @Transactional
-    @Rollback(false)
-    public void createUser() {
+    @Rollback(true)
+    public void createBook() {
         Book book = new Book();
-        book.setBookRank(new Integer(1));
+        book.setBookRank(new Long("1"));
+        System.out.println(book.getBookRank());
         book.setBookName("BookName");
         book.setTranslated("Yes");
+        System.out.println("DB:" + rankRepository.findAll());
         rankRepository.save(book);
     }
 }

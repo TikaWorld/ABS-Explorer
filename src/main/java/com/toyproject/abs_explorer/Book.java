@@ -11,18 +11,18 @@ import javax.persistence.*;
 public class Book {
 
     @Id
-    private Integer bookRank;
+    private Long bookRank;
 
     private String bookName;
 
     private String translated;
 
-    Integer getBookRank() {
+    Long getBookRank() {
         return bookRank;
     }
 
-    void setBookRank(Integer bookRank) {
-        bookRank = this.bookRank;
+    void setBookRank(Long bookRank) {
+        this.bookRank = bookRank;
     }
 
     String getBookName() {
@@ -30,7 +30,7 @@ public class Book {
     }
 
     void setBookName(String bookName) {
-        bookName = this.bookName;
+        this.bookName = bookName;
     }
 
     String getTranslated() {
@@ -38,7 +38,7 @@ public class Book {
     }
 
     void setTranslated(String translated) {
-        translated = this.translated;
+        this.translated = translated;
     }
 
 
