@@ -26,7 +26,6 @@ public class SearchControllerTest {
     public void testRenewelBookRank(){
         Elements books = amazonSearcher.getBookElements("/best-sellers-books-computers-technology/zgbs/books/5/ref=zg_bs_nav_b_1_b");
         for(Element book: books){
-            System.out.println(book);
             Book newBook = new Book();
             newBook.setBookRank(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")));
             newBook.setBookName(book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text());
