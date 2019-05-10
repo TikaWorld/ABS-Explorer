@@ -19,14 +19,14 @@ public class RankRepositoryTest {
 
     @Test
     @Transactional
-    @Rollback(true)
+    @Rollback(false)
     public void createBook() {
-        Book book = new Book();
-        book.setBookRank(new Long("1"));
-        System.out.println(book.getBookRank());
-        book.setBookName("BookName");
-        book.setTranslated("Yes");
-        System.out.println("DB:" + rankRepository.findAll());
-        rankRepository.save(book);
+//        Book book = new Book();
+//        book.setBookRank(new Long("1"));
+//        System.out.println(book.getBookRank());
+//        book.setBookName("BookName");
+//        book.setTranslated("Yes");
+//        System.out.println("DB:" + rankRepository.findAll());
+//        rankRepository.save(book);
     }
 }

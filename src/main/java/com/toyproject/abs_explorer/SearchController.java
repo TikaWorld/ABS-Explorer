@@ -18,11 +18,11 @@ public class SearchController {
     void renewelBookRank(String category) {
         Elements books = amazonSearcher.getBookElements(category);
         for(Element book: books){
-            Book newBook = new Book();
-            newBook.setBookRank(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")));
-            newBook.setBookName(book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text());
-            newBook.setTranslated("NULL");
-            rankRepository.save(newBook);
+//            Book newBook = new Book();
+//            newBook.setBookRank(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")));
+//            newBook.setBookName(book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text());
+//            newBook.setTranslated("NULL");
+//            rankRepository.save(newBook);
         }
     }
 }

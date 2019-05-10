@@ -10,36 +10,40 @@ import javax.persistence.*;
 @Table(name="ranking")
 public class Book {
 
-    @Id
-    private Long bookRank;
+    @EmbeddedId
+    private BookPK pk;
 
     private String bookName;
 
     private String translated;
 
-    Long getBookRank() {
-        return bookRank;
-    }
-
-    void setBookRank(Long bookRank) {
-        this.bookRank = bookRank;
-    }
-
-    String getBookName() {
-        return bookName;
-    }
-
-    void setBookName(String bookName) {
+    public Book(BookPK pk, String bookName, String translated) {
+        this.pk = pk;
         this.bookName = bookName;
-    }
-
-    String getTranslated() {
-        return translated;
-    }
-
-    void setTranslated(String translated) {
         this.translated = translated;
     }
 
+    public BookPK getPk() {
+        return pk;
+    }
 
+    public void setPk(BookPK pk) {
+        this.pk = pk;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+
+    public String getTranslated() {
+        return translated;
+    }
+
+    public void setTranslated(String translated) {
+        this.translated = translated;
+    }
 }

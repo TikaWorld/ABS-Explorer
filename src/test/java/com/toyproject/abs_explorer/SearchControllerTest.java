@@ -26,10 +26,12 @@ public class SearchControllerTest {
     public void testRenewelBookRank(){
         Elements books = amazonSearcher.getBookElements("/best-sellers-books-computers-technology/zgbs/books/5/ref=zg_bs_nav_b_1_b");
         for(Element book: books){
-            Book newBook = new Book();
-            newBook.setBookRank(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")));
-            newBook.setBookName(book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text());
-            newBook.setTranslated("NULL");
+            BookPK pk = new BookPK(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")), "Main");
+            System.out.println(pk.getBookRank());
+            System.out.println(pk.getCategory());
+            Book newBook = new Book(pk, book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text(), "NULL" );
+            System.out.println(newBook.getBookName());
+            System.out.println(newBook.getTranslated());
             rankRepository.save(newBook);
         }
     }
