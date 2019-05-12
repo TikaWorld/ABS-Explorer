@@ -1,5 +1,8 @@
 package com.toyproject.abs_explorer;
 
+import com.toyproject.abs_explorer.Entity.Book;
+import com.toyproject.abs_explorer.Repository.CategoryRepository;
+import com.toyproject.abs_explorer.Repository.RankRepository;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
@@ -17,6 +20,9 @@ public class SearchControllerTest {
     @Autowired
     private RankRepository rankRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     private SearchController searchController = new SearchController();
     private AmazonSearcher amazonSearcher = new AmazonSearcher();
 
@@ -26,7 +32,7 @@ public class SearchControllerTest {
     public void testRenewelBookRank(){
         Elements books = amazonSearcher.getBookElements("/best-sellers-books-computers-technology/zgbs/books/5/ref=zg_bs_nav_b_1_b");
         for(Element book: books){
-            BookPK pk = new BookPK(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")), "Main");
+            Book.BookPK pk = new Book.BookPK(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")), "Main");
             System.out.println(pk.getBookRank());
             System.out.println(pk.getCategory());
             Book newBook = new Book(pk, book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text(), "NULL" );
