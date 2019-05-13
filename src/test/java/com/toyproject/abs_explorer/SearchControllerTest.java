@@ -1,6 +1,7 @@
 package com.toyproject.abs_explorer;
 
 import com.toyproject.abs_explorer.Entity.Book;
+import com.toyproject.abs_explorer.Entity.Category;
 import com.toyproject.abs_explorer.Repository.CategoryRepository;
 import com.toyproject.abs_explorer.Repository.RankRepository;
 import org.jsoup.nodes.Element;
@@ -41,4 +42,16 @@ public class SearchControllerTest {
             rankRepository.save(newBook);
         }
     }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void testRenewelCategory(){
+        Elements categories = amazonSearcher.getCategory();
+        for(Element category: categories){
+            Category newCategory = new Category(category.text(),category.attr("abs:href").replace("https://www.amazon.com", ""));
+            categoryRepository.save(newCategory);
+        }
+    }
+
 }

@@ -53,27 +53,4 @@ public class Book {
         this.translated = translated;
     }
 
-    public BookPK getPk() {
-        return pk;
-    }
-
-    public void setPk(BookPK pk) {
-        this.pk = pk;
-    }
-
-    public String getBookName() {
-        return bookName;
-    }
-
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
-    }
-
-    public String getTranslated() {
-        return translated;
-    }
-
-    public void setTranslated(String translated) {
-        this.translated = translated;
-    }
 }

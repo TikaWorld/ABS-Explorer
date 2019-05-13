@@ -15,9 +15,9 @@ public class Category {
 
     private String url;
 
-    Category() {}
+    public Category() {}
 
-    Category(String name, String url) {
+    public Category(String name, String url) {
         this.name = name;
         this.url = url;
     }

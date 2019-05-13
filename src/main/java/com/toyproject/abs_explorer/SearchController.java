@@ -1,6 +1,7 @@
 package com.toyproject.abs_explorer;
 
-import com.toyproject.abs_explorer.Entity.Book;
+import com.toyproject.abs_explorer.Entity.*;
+import com.toyproject.abs_explorer.Repository.CategoryRepository;
 import com.toyproject.abs_explorer.Repository.RankRepository;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -12,22 +13,25 @@ public class SearchController {
     @Autowired
     private RankRepository rankRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     private AmazonSearcher amazonSearcher = new AmazonSearcher();
 
     @Transactional
     void renewelCategory() {
         Elements categories = amazonSearcher.getCategory();
         for(Element category: categories){
-            System.out.println(category.text());
-            System.out.println(category.attr("abs:href").replace("https://www.amazon.com", ""));
+            Category newCategory = new Category(category.text(),category.attr("abs:href").replace("https://www.amazon.com", ""));
+            categoryRepository.save(newCategory);
         }
     }
 
     @Transactional
-    void renewelBookRank(String category) {
-        Elements books = amazonSearcher.getBookElements(category);
+    void renewelBookRank(Category category) {
+        Elements books = amazonSearcher.getBookElements(category.getUrl());
         for(Element book: books){
-            Book.BookPK pk = new Book.BookPK(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")), category);
+            Book.BookPK pk = new Book.BookPK(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")), category.getName());
             Book newBook = new Book(pk, book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text(), "NULL" );
             newBook.setTranslated("NULL");
             rankRepository.save(newBook);
