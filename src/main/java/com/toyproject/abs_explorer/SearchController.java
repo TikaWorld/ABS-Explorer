@@ -18,9 +18,14 @@ public class SearchController {
 
     private AmazonSearcher amazonSearcher = new AmazonSearcher();
 
+    void renewelMainCategory() {
+        Category main = amazonSearcher.getMainCategory();
+        renewelCategory(main);
+    }
+
     @Transactional
-    void renewelCategory() {
-        Elements categories = amazonSearcher.getCategory();
+    void renewelCategory(Category current) {
+        Elements categories = amazonSearcher.getCategory(current.getUrl());
         for(Element category: categories){
             Category newCategory = new Category(category.text(),category.attr("abs:href").replace("https://www.amazon.com", ""));
             categoryRepository.save(newCategory);
