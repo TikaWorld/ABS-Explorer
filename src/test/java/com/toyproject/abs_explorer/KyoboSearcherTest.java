@@ -19,7 +19,7 @@ public class KyoboSearcherTest {
     public void crawlAndSearchTest() {
         KyoboSearcher kyoboSearcher = new KyoboSearcher();
         AmazonSearcher amazonSearcher = new AmazonSearcher();
-        String exCategory = amazonSearcher.getCategory().get(0).attr("abs:href").replace("https://www.amazon.com", "");
+        String exCategory = amazonSearcher.getCategory(amazonSearcher.getMainCategory().getUrl()).get(0).attr("abs:href").replace("https://www.amazon.com", "");
         Elements books = amazonSearcher.getBookElements(exCategory);
         for(Element book: books) {
             System.out.println(book.select("span[class=zg-badge-text]").text());

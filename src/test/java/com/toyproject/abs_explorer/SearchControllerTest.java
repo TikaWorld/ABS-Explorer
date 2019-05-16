@@ -47,7 +47,7 @@ public class SearchControllerTest {
     @Transactional
     @Rollback(false)
     public void testRenewelCategory(){
-        Elements categories = amazonSearcher.getCategory();
+        Elements categories = amazonSearcher.getCategory(amazonSearcher.getMainCategory().getUrl());
         for(Element category: categories){
             Category newCategory = new Category(category.text(),category.attr("abs:href").replace("https://www.amazon.com", ""));
             categoryRepository.save(newCategory);
