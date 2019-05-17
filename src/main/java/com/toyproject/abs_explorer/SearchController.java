@@ -6,8 +6,14 @@ import com.toyproject.abs_explorer.Repository.RankRepository;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+@Controller
+@RequestMapping("/")
 public class SearchController {
 
     @Autowired
@@ -18,9 +24,11 @@ public class SearchController {
 
     private AmazonSearcher amazonSearcher = new AmazonSearcher();
 
-    void renewelMainCategory() {
+    @RequestMapping(method= RequestMethod.GET)
+    public String renewelMainCategory() {
         Category main = amazonSearcher.getMainCategory();
         renewelCategory(main);
+        return "renewel";
     }
 
     @Transactional
@@ -33,7 +41,7 @@ public class SearchController {
     }
 
     @Transactional
-    void renewelBookRank(Category category) {
+    public String renewelBookRank(Category category) {
         Elements books = amazonSearcher.getBookElements(category.getUrl());
         for(Element book: books){
             Book.BookPK pk = new Book.BookPK(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")), category.getName());
@@ -41,5 +49,6 @@ public class SearchController {
             newBook.setTranslated("NULL");
             rankRepository.save(newBook);
         }
+        return "Renewl!";
     }
 }
