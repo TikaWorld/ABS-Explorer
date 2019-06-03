@@ -30,24 +30,8 @@ public class SearchControllerTest {
     @Test
     @Transactional
     @Rollback(false)
-    public void testRenewelBookRank(){
-        Elements books = amazonSearcher.getBookElements("/best-sellers-books-computers-technology/zgbs/books/5/ref=zg_bs_nav_b_1_b");
-        for(Element book: books){
-            Book.BookPK pk = new Book.BookPK(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")), "Main");
-            System.out.println(pk.getBookRank());
-            System.out.println(pk.getCategory());
-            Book newBook = new Book(pk, book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text(), "NULL" );
-            System.out.println(newBook.getBookName());
-            System.out.println(newBook.getTranslated());
-            rankRepository.save(newBook);
-        }
-    }
-
-    @Test
-    @Transactional
-    @Rollback(false)
     public void testRenewelCategory(){
-        Elements categories = amazonSearcher.getCategory(amazonSearcher.getMainCategory().getUrl());
+        Elements categories = amazonSearcher.crawlCategory(amazonSearcher.mainCategory.getUrl());
         for(Element category: categories){
             Category newCategory = new Category(category.text(),category.attr("abs:href").replace("https://www.amazon.com", ""));
             categoryRepository.save(newCategory);

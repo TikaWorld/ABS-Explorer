@@ -8,9 +8,10 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -26,27 +27,23 @@ public class SearchController {
 
     @RequestMapping(method= RequestMethod.GET)
     public String renewelMainCategory() {
-        Category main = amazonSearcher.getMainCategory();
+        Category main = amazonSearcher.mainCategory;
         renewelCategory(main);
         return "renewel";
     }
 
     @Transactional
     void renewelCategory(Category current) {
-        Elements categories = amazonSearcher.getCategory(current.getUrl());
-        for(Element category: categories){
-            Category newCategory = new Category(category.text(),category.attr("abs:href").replace("https://www.amazon.com", ""));
+        List<Category> categoryList = amazonSearcher.getCategory(current);
+        for(Category newCategory: categoryList){
             categoryRepository.save(newCategory);
         }
     }
 
     @Transactional
     public String renewelBookRank(Category category) {
-        Elements books = amazonSearcher.getBookElements(category.getUrl());
-        for(Element book: books){
-            Book.BookPK pk = new Book.BookPK(new Long(book.select("span[class=zg-badge-text]").text().replace("#","")), category.getName());
-            Book newBook = new Book(pk, book.select("span[class=aok-inline-block zg-item] > a[class=a-link-normal]").get(0).text(), "NULL" );
-            newBook.setTranslated("NULL");
+        List<Book> books = amazonSearcher.getBookList(category);
+        for(Book newBook: books){
             rankRepository.save(newBook);
         }
         return "Renewl!";
